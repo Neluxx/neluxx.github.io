@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="phosphor" data-crt="on">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>~/portfolio $</title>
+    <meta name="description" content="Interactive terminal portfolio of Fabian Arndt" />
+
+    <!-- Apply saved theme / CRT mode before first paint to avoid a flash -->
+    <script>
+        try {
+            const theme = localStorage.getItem('terminal-theme');
+            const crt = localStorage.getItem('terminal-crt');
+            if (theme) document.documentElement.dataset.theme = theme;
+            if (crt) document.documentElement.dataset.crt = crt;
+        } catch (e) { /* storage unavailable – use defaults */ }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/crt.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <div class="app">
+        <div class="crt-screen">
+
+            <!-- Window chrome -->
+            <header class="window-chrome">
+                <button id="btn-close" class="dot dot--red" aria-label="Close"></button>
+                <button id="btn-minimize" class="dot dot--yellow" aria-label="Minimize"></button>
+                <button id="btn-fullscreen" class="dot dot--green" aria-label="Fullscreen"></button>
+                <span class="window-title">tty1 — /bin/portfolio</span>
+            </header>
+
+            <!-- Terminal body -->
+            <main id="terminal-body">
+                <div id="boot-sequence"></div>
+
+                <div id="terminal-app" class="terminal-text">
+                    <div id="terminal-output" class="output"></div>
+
+                    <div class="input-line">
+                        <span class="prompt" id="input-prompt"></span>
+                        <input
+                            id="terminal-input"
+                            type="text"
+                            placeholder="type a command… (try 'help' or 'theme')"
+                            autocomplete="off"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            spellcheck="false"
+                            aria-label="Terminal input"
+                        />
+                    </div>
+                </div>
+            </main>
+
+            <!-- Status bar -->
+            <footer class="status-bar">
+                <span class="status-segment"><span class="led"></span>online</span>
+                <span class="status-segment" id="status-theme">phosphor</span>
+                <span class="status-segment hide-mobile" id="status-uptime">up 00:00</span>
+                <span class="status-segment hide-mobile" id="status-cmds">cmds 0</span>
+                <span class="status-segment status-segment--right" id="status-clock">--:--:--</span>
+            </footer>
+
+        </div>
+    </div>
+</body>
+</html>
