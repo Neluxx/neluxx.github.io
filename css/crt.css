@@ -1,0 +1,140 @@
+/* ============================================================
+   CRT EFFECTS — glass surface, scanlines, vignette, flicker.
+   Disabled with the `crt off` command (data-crt="off").
+   ============================================================ */
+
+.crt-screen {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--bg);
+    border-radius: 10px;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 12px 24px rgba(0, 0, 0, 0.45),
+        0 30px 60px -10px rgba(0, 0, 0, 0.6),
+        0 0 12px color-mix(in srgb, var(--glow) 20%, transparent),
+        0 0 40px color-mix(in srgb, var(--glow) 12%, transparent),
+        0 0 90px color-mix(in srgb, var(--glow) 7%, transparent),
+        0 0 180px color-mix(in srgb, var(--glow) 4%, transparent),
+        inset 0 0 60px color-mix(in srgb, var(--glow) 16%, transparent),
+        inset 0 0 180px rgba(0, 0, 0, 0.55);
+    animation: crt-flicker 6s infinite steps(1);
+}
+
+/* Scanlines */
+.crt-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, var(--scanline-opacity)) 3px,
+        rgba(0, 0, 0, 0) 4px
+    );
+}
+
+/* Vignette + slowly rolling scanline */
+.crt-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 31;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, var(--vignette-opacity)) 100%),
+        linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--glow) 8%, transparent) 50%, transparent 100%);
+    background-size: 100% 100%, 100% 6px;
+    background-repeat: no-repeat, repeat-y;
+    animation: crt-roll 7s linear infinite;
+}
+
+@keyframes crt-flicker {
+    0%, 92%, 100% { filter: brightness(1); }
+    93% { filter: brightness(calc(1 - var(--flicker-intensity))); }
+    94% { filter: brightness(calc(1 + var(--flicker-intensity) * 0.6)); }
+    95% { filter: brightness(calc(1 - var(--flicker-intensity) * 0.3)); }
+    96% { filter: brightness(1); }
+}
+
+@keyframes crt-roll {
+    0%   { background-position: 0 0, 0 -200px; }
+    100% { background-position: 0 0, 0 100vh; }
+}
+
+/* ---------- Phosphor glow on text ------------------------- */
+
+.crt-screen .terminal-text {
+    color: var(--fg);
+    text-shadow: var(--glow-soft);
+}
+
+.crt-screen .terminal-text * {
+    text-shadow: inherit;
+}
+
+.crt-screen .prompt,
+.crt-screen .bold {
+    text-shadow: var(--glow-strong);
+}
+
+/* ---------- CRT off --------------------------------------- */
+
+html[data-crt="off"] .crt-screen {
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 12px 24px rgba(0, 0, 0, 0.45),
+        0 30px 60px -10px rgba(0, 0, 0, 0.6);
+    animation: none;
+}
+
+html[data-crt="off"] .crt-screen::before,
+html[data-crt="off"] .crt-screen::after {
+    display: none;
+}
+
+html[data-crt="off"] .crt-screen *,
+html[data-crt="off"] .window-title {
+    text-shadow: none !important;
+}
+
+html[data-crt="off"] .crt-cursor,
+html[data-crt="off"] .status-bar .led {
+    box-shadow: none;
+}
+
+html[data-crt="off"] .status-bar .led {
+    animation: none;
+}
+
+/* ---------- Reduced motion -------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .crt-screen,
+    .crt-screen::after,
+    .crt-cursor,
+    .status-bar .led,
+    .output-block,
+    .boot-line {
+        animation: none !important;
+    }
+
+    .output-block {
+        clip-path: none;
+        opacity: 1;
+        filter: none;
+    }
+
+    .boot-line {
+        opacity: 1;
+    }
+}
