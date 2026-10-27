@@ -1,0 +1,183 @@
+/* ============================================================
+   BASE — fonts, theme tokens and page layout
+   ============================================================ */
+
+/* ---------- Theme tokens ---------------------------------- */
+/* Every theme overrides the colour palette and the glow colour.
+   The active theme is set via data-theme on <html>.           */
+
+html {
+    --font-mono: 'Ubuntu Mono', 'Courier New', monospace;
+
+    --bg:     #0a1a0a;
+    --fg:     #c8ffd0;
+    --green:  #39ff7a;
+    --cyan:   #5dffff;
+    --blue:   #7fd8ff;
+    --yellow: #f4ff5a;
+    --red:    #ff5a5a;
+    --purple: #b793ff;
+    --glow:   #39ff7a;
+
+    --glow-strong: 0 0 1px currentColor, 0 0 4px var(--glow),
+                   0 0 10px color-mix(in srgb, var(--glow) 60%, transparent);
+    --glow-soft:   0 0 1px currentColor,
+                   0 0 3px color-mix(in srgb, var(--glow) 70%, transparent);
+
+    --scanline-opacity: 0.2;
+    --vignette-opacity: 0.3;
+    --flicker-intensity: 0.1;
+}
+
+html[data-theme="amber"] {
+    --bg:     #1a0e00;
+    --fg:     #ffd58a;
+    --green:  #ffb347;
+    --cyan:   #ffd58a;
+    --blue:   #ffc77a;
+    --yellow: #fff09a;
+    --red:    #ff6b3d;
+    --purple: #ff8a5a;
+    --glow:   #ff9a3c;
+}
+
+html[data-theme="matrix"] {
+    --bg:     #000000;
+    --fg:     #00ff66;
+    --green:  #00ff41;
+    --cyan:   #66ff99;
+    --blue:   #99ffcc;
+    --yellow: #ccff66;
+    --red:    #ff3333;
+    --purple: #66ff66;
+    --glow:   #00ff41;
+}
+
+html[data-theme="dracula"] {
+    --bg:     #1a0e2e;
+    --fg:     #f8f8f2;
+    --green:  #50fa7b;
+    --cyan:   #8be9fd;
+    --blue:   #6272a4;
+    --yellow: #f1fa8c;
+    --red:    #ff5555;
+    --purple: #bd93f9;
+    --glow:   #bd93f9;
+}
+
+html[data-theme="ubuntu"] {
+    --bg:     #300924;
+    --fg:     #eeeeec;
+    --green:  #8ae234;
+    --cyan:   #34e2e2;
+    --blue:   #729fcf;
+    --yellow: #fce94f;
+    --red:    #ef2929;
+    --purple: #ad7fa8;
+    --glow:   #ad7fa8;
+}
+
+/* ---------- Reset & page ---------------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background: radial-gradient(ellipse at top, #2a2a2e 0%, #181819 70%, #0f0f10 100%);
+    font-family: var(--font-mono);
+    overflow: hidden;
+}
+
+/* ---------- Layout ---------------------------------------- */
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding: 12px;
+}
+
+@media (min-width: 640px) {
+    .app {
+        padding: 20px;
+    }
+}
+
+.hide-mobile {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .hide-mobile {
+        display: inline;
+    }
+}
+
+/* ---------- Window chrome (Mac-style traffic lights) ------ */
+
+.window-chrome {
+    position: relative;
+    z-index: 40;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: color-mix(in srgb, var(--bg) 65%, #000);
+    border-bottom: 1px solid color-mix(in srgb, var(--glow) 25%, transparent);
+    backdrop-filter: blur(8px);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+}
+
+.dot:hover {
+    filter: brightness(1.1);
+}
+
+.dot--red    { background: #ff5f56; }
+.dot--yellow { background: #ffbd2e; }
+.dot--green  { background: #27c93f; }
+
+.window-title {
+    margin-left: auto;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    color: var(--fg);
+    text-shadow: var(--glow-soft);
+}
+
+/* ---------- Terminal body / minimize ---------------------- */
+
+#terminal-body {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+#terminal-body.minimized {
+    flex: 0 0 0;
+    height: 0 !important;
+    opacity: 0;
+}
