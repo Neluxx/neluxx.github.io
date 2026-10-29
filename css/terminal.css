@@ -135,9 +135,10 @@
 .ascii-art {
     display: none;
     margin: 8px 0;
-    font-family: inherit;
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', 'Liberation Mono', 'Courier New', monospace;
     font-size: 12px;
-    line-height: 1.25;
+    line-height: 1.1;
+    white-space: pre;
     color: var(--green);
 }
 

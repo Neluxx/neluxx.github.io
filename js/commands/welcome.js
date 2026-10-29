@@ -16,7 +16,7 @@ export default {
     run() {
         return `
             <div class="section">
-                <pre class="ascii-art">${ASCII_LOGO}</pre>
+                <pre class="ascii-art" role="img" aria-label="Portfolio">${ASCII_LOGO}</pre>
                 <div>
                     <p class="c-purple small">${escapeHtml(welcome.subtitle)}</p>
                     <p class="c-fg mt-sm">${escapeHtml(welcome.message)}</p>
