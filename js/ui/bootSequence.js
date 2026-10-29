@@ -1,5 +1,5 @@
 /**
- * Fake BIOS / Linux boot screen shown once per browser session.
+ * Fake BIOS / Linux boot screen shown on every page load.
  *
  * - Any key, click or tap skips the animation; once it has finished,
  *   the same input dismisses the screen.
@@ -8,9 +8,8 @@
  */
 
 import { user } from '../data/content.js';
-import { local, session } from '../utils/storage.js';
+import { local } from '../utils/storage.js';
 
-const BOOTED_KEY = 'booted';
 const LAST_LOGIN_KEY = 'last-login';
 
 const DEFAULT_DELAY = 45;
@@ -126,15 +125,9 @@ function createPressAnyKeyLine() {
 }
 
 /**
- * Plays the boot sequence (unless already shown in this session)
- * and resolves once the user dismissed it.
+ * Plays the boot sequence and resolves once the user dismissed it.
  */
 export async function runBootSequence(container) {
-    if (session.get(BOOTED_KEY) === '1') {
-        container.remove();
-        return;
-    }
-
     const dismissed = createDismissSignal();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -170,7 +163,6 @@ export async function runBootSequence(container) {
     await play();
     await dismissed.promise;
 
-    session.set(BOOTED_KEY, '1');
     local.set(LAST_LOGIN_KEY, new Date().toISOString());
 
     container.classList.add('is-hidden');
