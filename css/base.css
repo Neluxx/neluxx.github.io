@@ -19,10 +19,11 @@ html {
     --purple: #b793ff;
     --glow:   #39ff7a;
 
-    --glow-strong: 0 0 1px currentColor, 0 0 4px var(--glow), 0 0 10px color-mix(in srgb, var(--glow) 60%, transparent);
-    --glow-soft:   0 0 1px currentColor, 0 0 3px color-mix(in srgb, var(--glow) 70%, transparent);
+    --glow-strong: 0 0 2px color-mix(in srgb, var(--glow) 45%, transparent),
+    0 0 10px color-mix(in srgb, var(--glow) 20%, transparent);
+    --glow-soft:   0 0 4px color-mix(in srgb, var(--glow) 30%, transparent);
 
-    --scanline-opacity: 0.2;
+    --scanline-opacity: 0.15;
     --vignette-opacity: 0.3;
     --flicker-intensity: 0.1;
 }
