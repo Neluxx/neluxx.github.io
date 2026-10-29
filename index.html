@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="phosphor" data-crt="on">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fabian Arndt | Portfolio</title>
-    <meta name="description" content="Interactive terminal portfolio of Fabian Arndt"/>
+    <meta name="description" content="Interactive terminal portfolio of Fabian Arndt" />
 
     <!-- Apply saved theme / CRT mode before first paint to avoid a flash -->
     <script>
@@ -13,17 +13,14 @@
             const crt = localStorage.getItem('terminal-crt');
             if (theme) document.documentElement.dataset.theme = theme;
             if (crt) document.documentElement.dataset.crt = crt;
-        } catch (e) { /* storage unavailable – use defaults */
-        }
+        } catch (e) { /* storage unavailable – use defaults */ }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"/>
+    <link rel="preload" href="fonts/ubuntu-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 
-    <link rel="stylesheet" href="css/base.css"/>
-    <link rel="stylesheet" href="css/crt.css"/>
-    <link rel="stylesheet" href="css/terminal.css"/>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/crt.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
 
     <script type="module" src="js/main.js"></script>
 </head>

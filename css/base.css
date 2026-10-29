@@ -2,6 +2,26 @@
    BASE — fonts, theme tokens and page layout
    ============================================================ */
 
+/* ---------- Fonts ----------------------------------------- */
+/* Ubuntu Mono is self-hosted (see fonts/LICENSE.txt),
+   so no visitor data is sent to a third party.               */
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/ubuntu-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/ubuntu-mono-700.woff2') format('woff2');
+}
+
 /* ---------- Theme tokens ---------------------------------- */
 /* Every theme overrides the colour palette and the glow colour.
    The active theme is set via data-theme on <html>.           */
