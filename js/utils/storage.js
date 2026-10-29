@@ -1,30 +1,22 @@
 /**
- * Safe wrappers around Web Storage.
+ * Safe wrapper around localStorage.
  * Storage can throw (private mode, blocked cookies), so every access is guarded.
  */
 
-function read(storage, key) {
-    try {
-        return storage.getItem(key);
-    } catch {
-        return null;
-    }
-}
-
-function write(storage, key, value) {
-    try {
-        storage.setItem(key, value);
-    } catch {
-        /* ignore — the setting just won't be remembered */
-    }
-}
-
 export const local = {
-    get: (key) => read(window.localStorage, key),
-    set: (key, value) => write(window.localStorage, key, value),
-};
+    get(key) {
+        try {
+            return window.localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    },
 
-export const session = {
-    get: (key) => read(window.sessionStorage, key),
-    set: (key, value) => write(window.sessionStorage, key, value),
+    set(key, value) {
+        try {
+            window.localStorage.setItem(key, value);
+        } catch {
+            /* ignore — the value just won't be remembered */
+        }
+    },
 };
