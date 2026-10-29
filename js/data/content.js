@@ -9,16 +9,17 @@ export const user = {
 };
 
 export const welcome = {
-    subtitle: 'Ubuntu 24.04 LTS — plain HTML / CSS / JavaScript',
+    subtitle: 'Ubuntu 24.04 LTS',
     message: 'Welcome to my interactive portfolio',
 };
 
 export const about = {
     title: 'Let me introduce myself!',
     paragraphs: [
-        'Hey, my name is Fabian. I’m a full-stack software developer from Germany with a passion for building things on the web, contributing to open source, and experimenting with new technologies. I originally came from a media design background, which sparked my interest in development and eventually led me into computer science.',
-        'When I’m not working on software, I’m usually creating Minecraft datapacks or tinkering with side projects.',
-        'I love clean code, open-source, and a good cup of coffee ☕',
+        'Hey, I’m Fabian. I’m a full-stack developer from Germany. I started out in media design, became curious about what happens behind the pixels, and eventually made my way into software development through a degree in computer science.',
+        'At ORCA Services, I build and maintain custom web applications for Swiss clients in public transport, insurance and the justice sector. My work spans the whole lifecycle, from the initial idea to long-term maintenance. We also maintain a handful of open source packages that came out of the projects we work on.',
+        'In my spare time, I contribute to open source when I come across something worth improving, and work on projects of my own.',
+        'Away from the keyboard, I enjoy spending time outdoors, whether it’s hiking or working in the garden.',
     ],
 };
 
@@ -42,7 +43,7 @@ export const experience = {
         {
             title: 'Software developer',
             company: 'ORCA Services AG · Aug 2021 – Present',
-            description: 'Designing and building web applications for clients across various industries',
+            description: 'Building and maintaining custom web applications for Swiss clients in public transport, insurance and the justice sector, from the initial idea to long-term maintenance',
         },
         {
             title: 'Junior web developer',
@@ -75,7 +76,8 @@ export const socials = {
     title: 'Get in touch with me!',
     links: [
         { label: 'GitHub',   text: 'github.com/neluxx',            url: 'https://github.com/neluxx' },
-        { label: 'LinkedIn', text: 'linkedin.com/in/arndt-fabian', url: 'https://linkedin.com/in/arndt-fabian' },
+        { label: 'LinkedIn', text: 'linkedin.com/in/arndt-fabian', url: 'https://www.linkedin.com/in/arndt-fabian/' },
+        { label: 'Email',    text: 'neluxx@proton.me',             url: 'mailto:neluxx@proton.me' },
     ],
 };
 
@@ -83,28 +85,22 @@ export const projects = {
     title: 'Some things I’ve built',
     list: [
         {
-            name: 'CLI Portfolio',
-            description: 'My personal portfolio, built as an interactive browser-based terminal with plain HTML, CSS and JavaScript',
-            text: 'github.com/neluxx/cli-portfolio',
-            url: 'https://github.com/neluxx/cli-portfolio',
+            name: 'air2mqtt',
+            description: 'Reads air quality sensor data and publishes it to MQTT',
+            text: 'github.com/neluxx/air2mqtt',
+            url: 'https://github.com/Neluxx/air2mqtt',
         },
         {
-            name: 'Enviro Hub',
-            description: 'Laravel-based API for storing, processing, and alerting based on environmental sensor data from distributed nodes',
-            text: 'github.com/neluxx/enviro-hub',
-            url: 'https://github.com/neluxx/enviro-hub',
-        },
-        {
-            name: 'Enviro Node',
-            description: 'A Raspberry Pi sensor node built with Python',
-            text: 'github.com/neluxx/enviro-node',
-            url: 'https://github.com/neluxx/enviro-node',
+            name: 'neluxx.github.io',
+            description: 'My portfolio as an interactive terminal in the browser, built with plain HTML, CSS and JavaScript. You’re using it right now',
+            text: 'github.com/neluxx/neluxx.github.io',
+            url: 'https://github.com/Neluxx/neluxx.github.io',
         },
         {
             name: 'Minecraft Datapacks',
             description: 'A collection of Minecraft datapacks focused on custom world generation',
-            text: 'github.com/Neluxx?tab=repositories&q=minecraft',
-            url: 'https://github.com/Neluxx?tab=repositories&q=minecraft',
+            text: 'github.com/Neluxx?tab=repositories&q=datapack',
+            url: 'https://github.com/Neluxx?tab=repositories&q=datapack',
         },
     ],
 };
