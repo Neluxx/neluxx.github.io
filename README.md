@@ -1,7 +1,6 @@
 # CLI Portfolio
 
-An interactive, browser-based terminal portfolio — built with plain HTML, CSS and JavaScript.
-No build step, no dependencies, ready for GitHub Pages.
+An interactive, browser-based terminal portfolio built with plain HTML, CSS and JavaScript.
 
 ## Project structure
 
