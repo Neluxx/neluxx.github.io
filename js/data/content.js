@@ -16,10 +16,9 @@ export const welcome = {
 export const about = {
     title: 'Let me introduce myself!',
     paragraphs: [
-        'Hey, I’m Fabian. I’m a full-stack developer from Germany. I started out in media design, became curious about what happens behind the pixels, and eventually made my way into software development through a degree in computer science.',
-        'At ORCA Services, I build and maintain custom web applications for Swiss clients in public transport, insurance and the justice sector. My work spans the whole lifecycle, from the initial idea to long-term maintenance. We also maintain a handful of open source packages that came out of the projects we work on.',
-        'In my spare time, I contribute to open source when I come across something worth improving, and work on projects of my own.',
-        'Away from the keyboard, I enjoy spending time outdoors, whether it’s hiking or working in the garden.',
+        'Hey, I’m Fabian, a full-stack developer from Germany. My journey into software development started in media design, where I became curious about what happens behind the pixels. That curiosity eventually led me to study computer science and pursue a career in software development.',
+        'Outside of work, I enjoy contributing to open source whenever I spot something worth improving, as well as building projects of my own.
+        'When I’m away from the keyboard, you’ll usually find me outdoors, hiking or spending time in the garden.',
     ],
 };
 
@@ -67,7 +66,7 @@ export const skills = {
     title: 'Here’s what I work with',
     groups: [
         { label: 'Languages',  items: ['PHP', 'Python', 'Java', 'JavaScript'] },
-        { label: 'Frameworks', items: ['Laravel', 'CakePHP', 'Symfony', 'Django'] },
+        { label: 'Frameworks', items: ['CakePHP', 'Laravel', 'Symfony', 'Django'] },
         { label: 'Tools',      items: ['Docker', 'Git', 'MySQL', 'Apache', 'Nginx'] },
     ],
 };
@@ -92,7 +91,7 @@ export const projects = {
         },
         {
             name: 'neluxx.github.io',
-            description: 'My portfolio as an interactive terminal in the browser, built with plain HTML, CSS and JavaScript. You’re using it right now',
+            description: 'My portfolio as an interactive terminal in the browser. You’re using it right now',
             text: 'github.com/neluxx/neluxx.github.io',
             url: 'https://github.com/Neluxx/neluxx.github.io',
         },
