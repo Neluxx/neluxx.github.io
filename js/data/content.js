@@ -17,7 +17,7 @@ export const about = {
     title: 'Let me introduce myself!',
     paragraphs: [
         'Hey, I’m Fabian, a full-stack developer from Germany. My journey into software development started in media design, where I became curious about what happens behind the pixels. That curiosity eventually led me to study computer science and pursue a career in software development.',
-        'Outside of work, I enjoy contributing to open source whenever I spot something worth improving, as well as building projects of my own.
+        'Outside of work, I enjoy contributing to open source whenever I spot something worth improving, as well as building projects of my own.,
         'When I’m away from the keyboard, you’ll usually find me outdoors, hiking or spending time in the garden.',
     ],
 };
