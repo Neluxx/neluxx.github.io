@@ -31,9 +31,20 @@
 }
 
 @keyframes print-reveal {
-    from { clip-path: inset(0 100% 0 0); opacity: 0; filter: brightness(1.4); }
-    50%  { opacity: 1; filter: brightness(1.4); }
-    to   { clip-path: inset(0 0 0 0); opacity: 1; filter: brightness(1); }
+    from {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+        filter: brightness(1.4);
+    }
+    50% {
+        opacity: 1;
+        filter: brightness(1.4);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+        filter: brightness(1);
+    }
 }
 
 /* ---------- Prompt & input -------------------------------- */
@@ -45,8 +56,13 @@
     gap: 4px;
 }
 
-.input-entry { align-items: flex-start; }
-.input-line  { align-items: center; margin-top: 8px; }
+.input-entry {
+    align-items: flex-start;
+}
+.input-line {
+    align-items: center;
+    margin-top: 8px;
+}
 
 .prompt {
     flex-shrink: 0;
@@ -79,18 +95,40 @@
 
 /* ---------- Text helpers used in command output ----------- */
 
-.c-fg     { color: var(--fg); }
-.c-green  { color: var(--green); }
-.c-cyan   { color: var(--cyan); }
-.c-blue   { color: var(--blue); }
-.c-yellow { color: var(--yellow); }
-.c-red    { color: var(--red); }
-.c-purple { color: var(--purple); }
+.c-fg {
+    color: var(--fg);
+}
+.c-green {
+    color: var(--green);
+}
+.c-cyan {
+    color: var(--cyan);
+}
+.c-blue {
+    color: var(--blue);
+}
+.c-yellow {
+    color: var(--yellow);
+}
+.c-red {
+    color: var(--red);
+}
+.c-purple {
+    color: var(--purple);
+}
 
-.bold  { font-weight: bold; }
-.small { font-size: 12px; }
-.muted { opacity: 0.8; }
-.mt-sm { margin-top: 8px; }
+.bold {
+    font-weight: bold;
+}
+.small {
+    font-size: 12px;
+}
+.muted {
+    opacity: 0.8;
+}
+.mt-sm {
+    margin-top: 8px;
+}
 
 .output p {
     margin: 0;
@@ -135,7 +173,9 @@
 .ascii-art {
     display: none;
     margin: 8px 0;
-    font-family: ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', 'Liberation Mono', 'Courier New', monospace;
+    font-family:
+        ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', 'Liberation Mono', 'Courier New',
+        monospace;
     font-size: 12px;
     line-height: 1.1;
     white-space: pre;
@@ -166,8 +206,14 @@
 }
 
 @keyframes cursor-blink {
-    0%, 49%   { opacity: 1; }
-    50%, 100% { opacity: 0; }
+    0%,
+    49% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
 }
 
 /* ---------- Boot sequence --------------------------------- */
@@ -200,14 +246,29 @@
 }
 
 @keyframes boot-fade-in {
-    from { opacity: 0; transform: translateY(-2px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.boot-ok   { color: var(--green); text-shadow: var(--glow-strong); }
-.boot-warn { color: var(--yellow); }
-.boot-info { color: var(--cyan); }
-.boot-dim  { color: color-mix(in srgb, var(--fg) 55%, transparent); }
+.boot-ok {
+    color: var(--green);
+    text-shadow: var(--glow-strong);
+}
+.boot-warn {
+    color: var(--yellow);
+}
+.boot-info {
+    color: var(--cyan);
+}
+.boot-dim {
+    color: color-mix(in srgb, var(--fg) 55%, transparent);
+}
 
 /* ---------- Status bar ------------------------------------ */
 
@@ -247,6 +308,11 @@
 }
 
 @keyframes led-pulse {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.35; }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
 }
