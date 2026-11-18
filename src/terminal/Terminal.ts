@@ -31,10 +31,10 @@ export class Terminal {
     private readonly app: HTMLElement;
     private readonly output: HTMLElement;
     private readonly input: HTMLInputElement;
-    private readonly onCommand: (count: number) => void;
+    private readonly onCommand: ((count: number) => void) | undefined;
     private readonly history = new CommandHistory();
 
-    constructor({ registry, app, output, input, prompt, onCommand = () => {} }: TerminalOptions) {
+    constructor({ registry, app, output, input, prompt, onCommand }: TerminalOptions) {
         this.registry = registry;
         this.app = app;
         this.output = output;
@@ -73,7 +73,7 @@ export class Terminal {
         const result = this.run(parsed.name, parsed.args);
         if (result) this.print(result);
 
-        this.onCommand(this.history.size);
+        this.onCommand?.(this.history.size);
         this.scrollToBottom();
     }
 

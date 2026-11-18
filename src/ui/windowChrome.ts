@@ -28,8 +28,8 @@ export function initWindowChrome(): void {
 async function toggleFullscreen(): Promise<void> {
     if (document.fullscreenElement) {
         await document.exitFullscreen();
-    } else {
-        // Not supported everywhere (e.g. iPhone Safari)
-        await document.documentElement.requestFullscreen?.();
+    } else if (document.fullscreenEnabled) {
+        // Not available everywhere (e.g. iPhone Safari)
+        await document.documentElement.requestFullscreen();
     }
 }
