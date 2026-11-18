@@ -28,7 +28,7 @@
 
 /* Scanlines */
 .crt-screen::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     z-index: 30;
@@ -45,30 +45,57 @@
 
 /* Vignette + slowly rolling scanline */
 .crt-screen::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     z-index: 31;
     pointer-events: none;
     background:
         radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, var(--vignette-opacity)) 100%),
-        linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--glow) 8%, transparent) 50%, transparent 100%);
-    background-size: 100% 100%, 100% 6px;
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            color-mix(in srgb, var(--glow) 8%, transparent) 50%,
+            transparent 100%
+        );
+    background-size:
+        100% 100%,
+        100% 6px;
     background-repeat: no-repeat, repeat-y;
     animation: crt-roll 7s linear infinite;
 }
 
 @keyframes crt-flicker {
-    0%, 92%, 100% { filter: brightness(1); }
-    93% { filter: brightness(calc(1 - var(--flicker-intensity))); }
-    94% { filter: brightness(calc(1 + var(--flicker-intensity) * 0.6)); }
-    95% { filter: brightness(calc(1 - var(--flicker-intensity) * 0.3)); }
-    96% { filter: brightness(1); }
+    0%,
+    92%,
+    100% {
+        filter: brightness(1);
+    }
+    93% {
+        filter: brightness(calc(1 - var(--flicker-intensity)));
+    }
+    94% {
+        filter: brightness(calc(1 + var(--flicker-intensity) * 0.6));
+    }
+    95% {
+        filter: brightness(calc(1 - var(--flicker-intensity) * 0.3));
+    }
+    96% {
+        filter: brightness(1);
+    }
 }
 
 @keyframes crt-roll {
-    0%   { background-position: 0 0, 0 -200px; }
-    100% { background-position: 0 0, 0 100vh; }
+    0% {
+        background-position:
+            0 0,
+            0 -200px;
+    }
+    100% {
+        background-position:
+            0 0,
+            0 100vh;
+    }
 }
 
 /* ---------- Phosphor glow on text ------------------------- */
@@ -89,7 +116,7 @@
 
 /* ---------- CRT off --------------------------------------- */
 
-html[data-crt="off"] .crt-screen {
+html[data-crt='off'] .crt-screen {
     box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.06),
         0 12px 24px rgba(0, 0, 0, 0.45),
@@ -97,22 +124,22 @@ html[data-crt="off"] .crt-screen {
     animation: none;
 }
 
-html[data-crt="off"] .crt-screen::before,
-html[data-crt="off"] .crt-screen::after {
+html[data-crt='off'] .crt-screen::before,
+html[data-crt='off'] .crt-screen::after {
     display: none;
 }
 
-html[data-crt="off"] .crt-screen *,
-html[data-crt="off"] .window-title {
+html[data-crt='off'] .crt-screen *,
+html[data-crt='off'] .window-title {
     text-shadow: none !important;
 }
 
-html[data-crt="off"] .crt-cursor,
-html[data-crt="off"] .status-bar .led {
+html[data-crt='off'] .crt-cursor,
+html[data-crt='off'] .status-bar .led {
     box-shadow: none;
 }
 
-html[data-crt="off"] .status-bar .led {
+html[data-crt='off'] .status-bar .led {
     animation: none;
 }
 

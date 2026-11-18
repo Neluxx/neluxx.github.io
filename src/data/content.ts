@@ -44,7 +44,8 @@ export const experience: Experience = {
         {
             title: 'Software developer',
             company: 'ORCA Services AG · Aug 2021 – Present',
-            description: 'Building and maintaining custom web applications for Swiss clients in public transport, insurance and the justice sector, from the initial idea to long-term maintenance',
+            description:
+                'Building and maintaining custom web applications for Swiss clients in public transport, insurance and the justice sector, from the initial idea to long-term maintenance',
         },
         {
             title: 'Junior web developer',
@@ -67,18 +68,22 @@ export const experience: Experience = {
 export const skills: Skills = {
     title: 'Here’s what I work with',
     groups: [
-        { label: 'Languages',  items: ['PHP', 'Python', 'Java', 'JavaScript'] },
+        { label: 'Languages', items: ['PHP', 'Python', 'Java', 'JavaScript'] },
         { label: 'Frameworks', items: ['CakePHP', 'Laravel', 'Symfony', 'Django'] },
-        { label: 'Tools',      items: ['Docker', 'Git', 'MySQL', 'Apache', 'Nginx'] },
+        { label: 'Tools', items: ['Docker', 'Git', 'MySQL', 'Apache', 'Nginx'] },
     ],
 };
 
 export const socials: Socials = {
     title: 'Get in touch with me!',
     links: [
-        { label: 'GitHub',   text: 'github.com/neluxx',            url: 'https://github.com/neluxx' },
-        { label: 'LinkedIn', text: 'linkedin.com/in/arndt-fabian', url: 'https://www.linkedin.com/in/arndt-fabian/' },
-        { label: 'Email',    text: 'neluxx@proton.me',             url: 'mailto:neluxx@proton.me' },
+        { label: 'GitHub', text: 'github.com/neluxx', url: 'https://github.com/neluxx' },
+        {
+            label: 'LinkedIn',
+            text: 'linkedin.com/in/arndt-fabian',
+            url: 'https://www.linkedin.com/in/arndt-fabian/',
+        },
+        { label: 'Email', text: 'neluxx@proton.me', url: 'mailto:neluxx@proton.me' },
     ],
 };
 

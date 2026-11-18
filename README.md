@@ -54,13 +54,13 @@ Create `js/commands/mycommand.js`:
 import { escapeHtml } from '../utils/html.js';
 
 export default {
-    name: 'mycommand',
-    description: 'Shown in help',
-    run(args, { terminal, registry }) {
-        // Return an HTML string, or null for no output.
-        // Always escape anything that isn't a fixed string.
-        return `<p>Hello, ${escapeHtml(args || 'world')}!</p>`;
-    },
+  name: 'mycommand',
+  description: 'Shown in help',
+  run(args, { terminal, registry }) {
+    // Return an HTML string, or null for no output.
+    // Always escape anything that isn't a fixed string.
+    return `<p>Hello, ${escapeHtml(args || 'world')}!</p>`;
+  },
 };
 ```
 
