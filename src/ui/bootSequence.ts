@@ -36,14 +36,16 @@ interface DismissSignal {
  */
 function createDismissSignal(): DismissSignal {
     let isSet = false;
-    const { promise, resolve } = Promise.withResolvers<void>();
 
-    const onInput = (): void => {
-        DISMISS_EVENTS.forEach((event) => window.removeEventListener(event, onInput));
-        isSet = true;
-        resolve();
-    };
-    DISMISS_EVENTS.forEach((event) => window.addEventListener(event, onInput));
+    const promise = new Promise<void>((resolve) => {
+        const onInput = (): void => {
+            for (const event of DISMISS_EVENTS) window.removeEventListener(event, onInput);
+            isSet = true;
+            resolve();
+        };
+
+        for (const event of DISMISS_EVENTS) window.addEventListener(event, onInput);
+    });
 
     return {
         promise,
