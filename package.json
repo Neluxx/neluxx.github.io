@@ -1,0 +1,20 @@
+{
+  "name": "neluxx.github.io",
+  "private": true,
+  "description": "Interactive terminal portfolio of Fabian Arndt",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vite": "^8.3.8"
+  }
+}
