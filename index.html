@@ -6,7 +6,8 @@
     <title>Fabian Arndt | Portfolio</title>
     <meta name="description" content="Interactive terminal portfolio of Fabian Arndt" />
 
-    <!-- Apply saved theme / CRT mode before first paint to avoid a flash -->
+    <!-- Apply saved theme / CRT mode before first paint to avoid a flash.
+         Keep the storage keys in sync with src/utils/storage.ts -->
     <script>
         try {
             const theme = localStorage.getItem('terminal-theme');
@@ -16,14 +17,10 @@
         } catch (e) { /* storage unavailable – use defaults */ }
     </script>
 
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="preload" href="fonts/ubuntu-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preload" href="/fonts/ubuntu-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/crt.css" />
-    <link rel="stylesheet" href="css/terminal.css" />
-
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="/src/main.ts"></script>
 </head>
 <body>
 <div class="app">
