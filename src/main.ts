@@ -8,6 +8,7 @@ import './styles/terminal.css';
 
 import { createCommands } from './commands';
 import { renderWelcome } from './commands/welcome';
+import { user } from './data/content';
 import { CommandRegistry } from './terminal/CommandRegistry';
 import { Terminal } from './terminal/Terminal';
 import { runBootSequence } from './ui/bootSequence';
@@ -20,7 +21,7 @@ import { safeLocalStorage } from './utils/storage';
 async function main(): Promise<void> {
     const settings = createSettings(document.documentElement, safeLocalStorage);
 
-    initWindowChrome();
+    initWindowChrome(user);
     const statusBar = createStatusBar(settings);
 
     const registry = new CommandRegistry().register(...createCommands(settings));
@@ -28,6 +29,7 @@ async function main(): Promise<void> {
     const app = getElement('terminal-app');
     const terminal = new Terminal({
         registry,
+        user,
         app,
         output: getElement('terminal-output'),
         input: getElement('terminal-input', HTMLInputElement),
@@ -37,7 +39,7 @@ async function main(): Promise<void> {
 
     terminal.print(renderWelcome());
 
-    await runBootSequence(getElement('boot-sequence'));
+    await runBootSequence({ container: getElement('boot-sequence'), user, store: safeLocalStorage });
 
     app.classList.add('is-visible');
     terminal.focus();
