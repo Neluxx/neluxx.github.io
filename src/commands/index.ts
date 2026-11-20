@@ -4,7 +4,7 @@
  */
 
 import type { Command } from '../terminal/types';
-import type { Settings } from '../ui/settings';
+import type { Settings } from '../state/settings';
 import { aboutCommand } from './about';
 import { clearCommand } from './clear';
 import { createCrtCommand } from './crt';

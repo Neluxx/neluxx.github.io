@@ -2,7 +2,7 @@
  * Status bar at the bottom: theme name, uptime, command counter and clock.
  */
 
-import type { Settings } from './settings';
+import type { Settings } from '../state/settings';
 import { getElement } from '../utils/dom';
 import { formatClock, formatUptime } from '../utils/time';
 

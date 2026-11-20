@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createSettings } from '../../src/ui/settings';
+import { createSettings } from '../../src/state/settings';
 import { STORAGE_KEYS } from '../../src/utils/storage';
 import { createMemoryStore } from '../helpers/memoryStore';
 

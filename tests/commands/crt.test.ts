@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createCrtCommand } from '../../src/commands/crt';
-import { createSettings, type Settings } from '../../src/ui/settings';
+import { createSettings, type Settings } from '../../src/state/settings';
 import type { Command, CommandContext } from '../../src/terminal/types';
 import { createMemoryStore } from '../helpers/memoryStore';
 

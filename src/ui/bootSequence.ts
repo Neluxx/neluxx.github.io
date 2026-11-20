@@ -10,7 +10,7 @@
 import type { User } from '../data/types';
 import { STORAGE_KEYS, type KeyValueStore } from '../utils/storage';
 import { formatLoginDate } from '../utils/time';
-import { createBootLines, type BootLine, type BootStatus } from './bootLines';
+import { createBootLines, type BootLine, type BootStatus } from '../data/bootLines';
 
 const DEFAULT_DELAY_MS = 45;
 const TYPING_DELAY_MS = 70;
