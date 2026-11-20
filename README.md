@@ -41,37 +41,42 @@ Dependencies are kept up to date by [Renovate](renovate.json).
 ```
 ├── index.html
 ├── public/                   # copied as-is: favicon + self-hosted Ubuntu Mono
-└── src/
-    ├── main.ts               # entry point — wires everything together
-    ├── data/
-    │   ├── content.ts        # all portfolio texts — edit this to update content
-    │   └── types.ts          # shape of the content
-    ├── commands/             # one file per command
-    │   └── index.ts          # list of registered commands
-    ├── terminal/
-    │   ├── types.ts          # the Command interface
-    │   ├── Terminal.ts       # input line, output, key handling
-    │   ├── CommandRegistry.ts
-    │   ├── CommandHistory.ts # ↑ / ↓ history
-    │   └── parseInput.ts     # "theme matrix" → { name, args }
-    ├── ui/
-    │   ├── bootSequence.ts   # boot screen animation
-    │   ├── bootLines.ts      # the lines shown while booting
-    │   ├── settings.ts       # theme + CRT state
-    │   ├── statusBar.ts
-    │   └── windowChrome.ts
-    ├── utils/
-    │   ├── dom.ts            # typed element lookup
-    │   ├── html.ts           # escaping + small render helpers
-    │   ├── storage.ts        # safe localStorage access
-    │   └── time.ts           # clock, uptime and login date formatting
-    └── styles/
-        ├── base.css          # fonts, theme tokens, reset, page layout, window chrome
-        ├── crt.css           # CRT effects (scanlines, glow, flicker) + "crt off"
-        └── terminal.css      # terminal, command output, boot screen, status bar
+├── src/
+│   ├── main.ts               # entry point — wires everything together
+│   ├── data/
+│   │   ├── content.ts        # all portfolio texts — edit this to update content
+│   │   ├── bootLines.ts      # the lines shown while booting
+│   │   └── types.ts          # shape of the content
+│   ├── commands/             # one file per command
+│   │   └── index.ts          # list of registered commands
+│   ├── terminal/
+│   │   ├── types.ts          # the Command interface
+│   │   ├── Terminal.ts       # input line, output, key handling
+│   │   ├── CommandRegistry.ts
+│   │   ├── CommandHistory.ts # ↑ / ↓ history
+│   │   └── parseInput.ts     # "theme matrix" → { name, args }
+│   ├── state/
+│   │   └── settings.ts       # theme + CRT state, applied to <html> and persisted
+│   ├── ui/
+│   │   ├── bootSequence.ts   # boot screen animation
+│   │   ├── statusBar.ts
+│   │   └── windowChrome.ts
+│   ├── utils/
+│   │   ├── dom.ts            # typed element lookup
+│   │   ├── html.ts           # escaping + small render helpers
+│   │   ├── storage.ts        # safe localStorage access
+│   │   └── time.ts           # clock, uptime and login date formatting
+│   └── styles/
+│       ├── base.css          # fonts, theme tokens, reset, page layout, window chrome
+│       ├── crt.css           # CRT effects (scanlines, glow, flicker) + "crt off"
+│       └── terminal.css      # terminal, command output, boot screen, status bar
+└── tests/                    # unit tests, same folder layout as src/
 ```
 
 Tests live in `tests/`, in the same folder layout as `src/` (e.g. `tests/utils/html.test.ts` tests `src/utils/html.ts`).
+
+Dependencies are passed in explicitly (e.g. `createSettings(root, store)`), so modules don't reach for globals
+and can be tested in isolation. [`src/main.ts`](src/main.ts) is the only place that wires everything together.
 
 ## Updating content
 
@@ -97,7 +102,8 @@ export const helloCommand: Command = {
 };
 ```
 
-Then import it and add it to the list in [`src/commands/index.ts`](src/commands/index.ts).
+Then import it and add it to the list in `createCommands()` in [`src/commands/index.ts`](src/commands/index.ts).
+A command that needs a dependency, like the settings, is created by a factory function — see [`src/commands/theme.ts`](src/commands/theme.ts).
 
 ## License
 
