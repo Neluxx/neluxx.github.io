@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createSettings, type Settings } from '../../src/ui/settings';
 import { createThemeCommand } from '../../src/commands/theme';
-import type { CommandContext } from '../../src/terminal/types';
+import type { Command, CommandContext } from '../../src/terminal/types';
 import { createMemoryStore } from '../helpers/memoryStore';
 
 // The theme command doesn't use the context.
@@ -9,7 +9,7 @@ const context = {} as CommandContext;
 
 describe('theme command', () => {
     let settings: Settings;
-    let themeCommand: ReturnType<typeof createThemeCommand>;
+    let themeCommand: Command;
 
     beforeEach(() => {
         settings = createSettings(document.createElement('html'), createMemoryStore());
