@@ -1,5 +1,5 @@
 /**
- * Safe wrapper around localStorage.
+ * Safe access to localStorage.
  * Storage can throw (private mode, blocked cookies), so every access is guarded.
  */
 
@@ -13,10 +13,16 @@ export const STORAGE_KEYS = {
     lastLogin: 'last-login',
 } as const;
 
-type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
+export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
 
-export const local = {
-    get(key: StorageKey): string | null {
+/** A minimal key-value store, so features don't depend on localStorage directly. */
+export interface KeyValueStore {
+    get(key: StorageKey): string | null;
+    set(key: StorageKey, value: string): void;
+}
+
+export const safeLocalStorage: KeyValueStore = {
+    get(key) {
         try {
             return window.localStorage.getItem(key);
         } catch {
@@ -24,7 +30,7 @@ export const local = {
         }
     },
 
-    set(key: StorageKey, value: string): void {
+    set(key, value) {
         try {
             window.localStorage.setItem(key, value);
         } catch {
