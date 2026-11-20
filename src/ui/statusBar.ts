@@ -6,6 +6,9 @@ import type { Settings } from './settings';
 import { getElement } from '../utils/dom';
 import { formatClock, formatUptime } from '../utils/time';
 
+const MS_PER_SECOND = 1000;
+const TICK_INTERVAL_MS = MS_PER_SECOND;
+
 export interface StatusBar {
     setCommandCount(count: number): void;
 }
@@ -23,12 +26,12 @@ export function createStatusBar(settings: Settings): StatusBar {
 
     function tick(): void {
         clockLabel.textContent = formatClock(new Date());
-        uptimeLabel.textContent = formatUptime(Math.floor((Date.now() - startedAt) / 1000));
+        uptimeLabel.textContent = formatUptime(Math.floor((Date.now() - startedAt) / MS_PER_SECOND));
     }
 
     updateTheme();
     tick();
-    setInterval(tick, 1000);
+    setInterval(tick, TICK_INTERVAL_MS);
     settings.onChange(updateTheme);
 
     return {
