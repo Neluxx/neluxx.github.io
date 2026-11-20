@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CommandHistory } from './CommandHistory';
+import { CommandHistory } from '../../src/terminal/CommandHistory';
 
 function historyWith(...entries: string[]): CommandHistory {
     const history = new CommandHistory();

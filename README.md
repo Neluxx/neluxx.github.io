@@ -71,7 +71,7 @@ Dependencies are kept up to date by [Renovate](renovate.json).
         └── terminal.css      # terminal, command output, boot screen, status bar
 ```
 
-Tests live next to the code they test (`*.test.ts`).
+Tests live in `tests/`, in the same folder layout as `src/` (e.g. `tests/utils/html.test.ts` tests `src/utils/html.ts`).
 
 ## Updating content
 
