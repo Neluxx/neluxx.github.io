@@ -8,7 +8,7 @@
  */
 
 import { user } from '../data/content';
-import { local, STORAGE_KEYS } from '../utils/storage';
+import { safeLocalStorage, STORAGE_KEYS } from '../utils/storage';
 import { formatLoginDate } from '../utils/time';
 import { BOOT_LINES, type BootLine, type BootStatus } from './bootLines';
 
@@ -56,7 +56,7 @@ function createDismissSignal(): DismissSignal {
 }
 
 function lastLoginText(): string {
-    const previous = new Date(local.get(STORAGE_KEYS.lastLogin) ?? NaN);
+    const previous = new Date(safeLocalStorage.get(STORAGE_KEYS.lastLogin) ?? NaN);
 
     return Number.isNaN(previous.getTime())
         ? 'Welcome! This is your first login.'
@@ -129,7 +129,7 @@ export async function runBootSequence(container: HTMLElement): Promise<void> {
     await play();
     await dismissed.promise;
 
-    local.set(STORAGE_KEYS.lastLogin, new Date().toISOString());
+    safeLocalStorage.set(STORAGE_KEYS.lastLogin, new Date().toISOString());
 
     container.classList.add('is-hidden');
     await wait(FADE_OUT_MS);

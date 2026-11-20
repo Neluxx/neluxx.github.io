@@ -2,15 +2,15 @@
  * Status bar at the bottom: theme name, uptime, command counter and clock.
  */
 
+import type { Settings } from './settings';
 import { getElement } from '../utils/dom';
 import { formatClock, formatUptime } from '../utils/time';
-import { getTheme, SETTINGS_CHANGED_EVENT } from './settings';
 
 export interface StatusBar {
     setCommandCount(count: number): void;
 }
 
-export function createStatusBar(): StatusBar {
+export function createStatusBar(settings: Settings): StatusBar {
     const themeLabel = getElement('status-theme');
     const uptimeLabel = getElement('status-uptime');
     const commandsLabel = getElement('status-cmds');
@@ -18,7 +18,7 @@ export function createStatusBar(): StatusBar {
     const startedAt = Date.now();
 
     function updateTheme(): void {
-        themeLabel.textContent = getTheme();
+        themeLabel.textContent = settings.getTheme();
     }
 
     function tick(): void {
@@ -29,7 +29,7 @@ export function createStatusBar(): StatusBar {
     updateTheme();
     tick();
     setInterval(tick, 1000);
-    document.addEventListener(SETTINGS_CHANGED_EVENT, updateTheme);
+    settings.onChange(updateTheme);
 
     return {
         setCommandCount(count) {

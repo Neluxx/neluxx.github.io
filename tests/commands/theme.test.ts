@@ -1,23 +1,25 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createSettings, type Settings } from '../../src/ui/settings';
+import { createThemeCommand } from '../../src/commands/theme';
 import type { CommandContext } from '../../src/terminal/types';
-import { getTheme } from '../../src/ui/settings';
-import { STORAGE_KEYS } from '../../src/utils/storage';
-import { themeCommand } from '../../src/commands/theme';
+import { createMemoryStore } from '../helpers/memoryStore';
 
 // The theme command doesn't use the context.
 const context = {} as CommandContext;
 
 describe('theme command', () => {
+    let settings: Settings;
+    let themeCommand: ReturnType<typeof createThemeCommand>;
+
     beforeEach(() => {
-        delete document.documentElement.dataset.theme;
-        localStorage.clear();
+        settings = createSettings(document.createElement('html'), createMemoryStore());
+        themeCommand = createThemeCommand(settings);
     });
 
-    it('switches and remembers a valid theme', () => {
+    it('switches to a valid theme', () => {
         themeCommand.run('Matrix', context);
 
-        expect(getTheme()).toBe('matrix');
-        expect(localStorage.getItem(STORAGE_KEYS.theme)).toBe('matrix');
+        expect(settings.getTheme()).toBe('matrix');
     });
 
     it('rejects an unknown theme and escapes the input', () => {
@@ -25,7 +27,7 @@ describe('theme command', () => {
 
         expect(output).toContain('Unknown theme');
         expect(output).toContain('&lt;b&gt;');
-        expect(getTheme()).toBe('phosphor');
+        expect(settings.getTheme()).toBe('phosphor');
     });
 
     it('lists all themes without arguments', () => {

@@ -6,20 +6,24 @@ import './styles/base.css';
 import './styles/crt.css';
 import './styles/terminal.css';
 
-import { commands } from './commands';
+import { createCommands } from './commands';
 import { renderWelcome } from './commands/welcome';
 import { CommandRegistry } from './terminal/CommandRegistry';
 import { Terminal } from './terminal/Terminal';
 import { runBootSequence } from './ui/bootSequence';
+import { createSettings } from './ui/settings';
 import { createStatusBar } from './ui/statusBar';
 import { initWindowChrome } from './ui/windowChrome';
 import { getElement } from './utils/dom';
+import { safeLocalStorage } from './utils/storage';
 
 async function main(): Promise<void> {
-    initWindowChrome();
-    const statusBar = createStatusBar();
+    const settings = createSettings(document.documentElement, safeLocalStorage);
 
-    const registry = new CommandRegistry().register(...commands);
+    initWindowChrome();
+    const statusBar = createStatusBar(settings);
+
+    const registry = new CommandRegistry().register(...createCommands(settings));
 
     const app = getElement('terminal-app');
     const terminal = new Terminal({

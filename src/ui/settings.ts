@@ -1,10 +1,4 @@
-/**
- * Theme and CRT settings.
- * Values are stored as data attributes on <html> and persisted in localStorage.
- * Every change fires a `settings-changed` event on document.
- */
-
-import { local, STORAGE_KEYS } from '../utils/storage';
+import { STORAGE_KEYS, type KeyValueStore } from '../utils/storage';
 
 /** Every theme needs a matching `html[data-theme="…"]` block in base.css. */
 export const THEMES = {
@@ -21,40 +15,56 @@ export const THEME_NAMES = Object.keys(THEMES) as ThemeName[];
 
 export const DEFAULT_THEME: ThemeName = 'phosphor';
 
-export const SETTINGS_CHANGED_EVENT = 'settings-changed';
-
-const root = document.documentElement;
-
-function notify(): void {
-    document.dispatchEvent(new CustomEvent(SETTINGS_CHANGED_EVENT));
-}
-
-/* ---------- Theme ----------------------------------------- */
-
 export function isValidTheme(name: string | undefined): name is ThemeName {
     return name !== undefined && Object.hasOwn(THEMES, name);
 }
 
-export function getTheme(): ThemeName {
-    const theme = root.dataset.theme;
-    return isValidTheme(theme) ? theme : DEFAULT_THEME;
+export interface Settings {
+    getTheme(): ThemeName;
+    setTheme(theme: ThemeName): void;
+    isCrtEnabled(): boolean;
+    setCrtEnabled(enabled: boolean): void;
+    /** Calls `listener` after every change. */
+    onChange(listener: () => void): void;
 }
 
-export function setTheme(theme: ThemeName): void {
-    root.dataset.theme = theme;
-    local.set(STORAGE_KEYS.theme, theme);
-    notify();
-}
+/**
+ * Theme and CRT settings.
+ * The values are stored as data attributes on `root`, because the CSS selects on them,
+ * and persisted in `store` so they survive a reload.
+ */
+export function createSettings(root: HTMLElement, store: KeyValueStore): Settings {
+    const listeners: (() => void)[] = [];
 
-/* ---------- CRT ------------------------------------------- */
+    function notify(): void {
+        listeners.forEach((listener) => listener());
+    }
 
-export function isCrtEnabled(): boolean {
-    return root.dataset.crt !== 'off';
-}
+    return {
+        getTheme() {
+            const theme = root.dataset.theme;
+            return isValidTheme(theme) ? theme : DEFAULT_THEME;
+        },
 
-export function setCrtEnabled(enabled: boolean): void {
-    const value = enabled ? 'on' : 'off';
-    root.dataset.crt = value;
-    local.set(STORAGE_KEYS.crt, value);
-    notify();
+        setTheme(theme) {
+            root.dataset.theme = theme;
+            store.set(STORAGE_KEYS.theme, theme);
+            notify();
+        },
+
+        isCrtEnabled() {
+            return root.dataset.crt !== 'off';
+        },
+
+        setCrtEnabled(enabled) {
+            const value = enabled ? 'on' : 'off';
+            root.dataset.crt = value;
+            store.set(STORAGE_KEYS.crt, value);
+            notify();
+        },
+
+        onChange(listener) {
+            listeners.push(listener);
+        },
+    };
 }

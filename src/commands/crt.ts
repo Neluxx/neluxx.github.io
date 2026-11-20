@@ -1,9 +1,21 @@
-import type { Command } from '../terminal/types';
-import { isCrtEnabled, setCrtEnabled } from '../ui/settings';
 import { errorMessage, statusMessage } from '../utils/html';
+import type { Command } from '../terminal/types';
+import type { Settings } from '../ui/settings';
+
+const USAGE = 'Usage: <span class="c-yellow">crt</span> [on|off|toggle]';
+
+const ENABLED_MESSAGE = statusMessage(
+    'CRT effect <span class="c-green">enabled</span> — scanlines, glow and flicker active',
+    'green',
+);
+
+const DISABLED_MESSAGE = statusMessage(
+    'CRT effect <span class="c-yellow">disabled</span> — switched to clean reading mode',
+    'yellow',
+);
 
 /** Maps the argument to the new state — null means invalid argument. */
-function resolveState(arg: string): boolean | null {
+function resolveState(arg: string, isEnabled: boolean): boolean | null {
     switch (arg) {
         case 'on':
             return true;
@@ -11,33 +23,26 @@ function resolveState(arg: string): boolean | null {
             return false;
         case '':
         case 'toggle':
-            return !isCrtEnabled();
+            return !isEnabled;
         default:
             return null;
     }
 }
 
-export const crtCommand: Command = {
-    name: 'crt',
-    description: 'Toggle the CRT effect (e.g. crt off)',
+export function createCrtCommand(settings: Settings): Command {
+    return {
+        name: 'crt',
+        description: 'Toggle the CRT effect (e.g. crt off)',
 
-    run(args) {
-        const enabled = resolveState(args.trim().toLowerCase());
+        run(args) {
+            const enabled = resolveState(args.trim().toLowerCase(), settings.isCrtEnabled());
 
-        if (enabled === null) {
-            return errorMessage('Usage: <span class="c-yellow">crt</span> [on|off|toggle]');
-        }
+            if (enabled === null) {
+                return errorMessage(USAGE);
+            }
 
-        setCrtEnabled(enabled);
-
-        return enabled
-            ? statusMessage(
-                  'CRT effect <span class="c-green">enabled</span> — scanlines, glow and flicker active',
-                  'green',
-              )
-            : statusMessage(
-                  'CRT effect <span class="c-yellow">disabled</span> — switched to clean reading mode',
-                  'yellow',
-              );
-    },
-};
+            settings.setCrtEnabled(enabled);
+            return enabled ? ENABLED_MESSAGE : DISABLED_MESSAGE;
+        },
+    };
+}
