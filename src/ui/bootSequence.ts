@@ -7,10 +7,10 @@
  * - "Last login" shows the real time of the previous visit.
  */
 
-import { user } from '../data/content';
-import { safeLocalStorage, STORAGE_KEYS } from '../utils/storage';
+import type { User } from '../data/types';
+import { STORAGE_KEYS, type KeyValueStore } from '../utils/storage';
 import { formatLoginDate } from '../utils/time';
-import { BOOT_LINES, type BootLine, type BootStatus } from './bootLines';
+import { createBootLines, type BootLine, type BootStatus } from './bootLines';
 
 const DEFAULT_DELAY_MS = 45;
 const TYPING_DELAY_MS = 70;
@@ -55,8 +55,8 @@ function createDismissSignal(): DismissSignal {
     };
 }
 
-function lastLoginText(): string {
-    const previous = new Date(safeLocalStorage.get(STORAGE_KEYS.lastLogin) ?? NaN);
+function lastLoginText(store: KeyValueStore): string {
+    const previous = new Date(store.get(STORAGE_KEYS.lastLogin) ?? NaN);
 
     return Number.isNaN(previous.getTime())
         ? 'Welcome! This is your first login.'
@@ -89,10 +89,17 @@ function createPressAnyKeyLine(): HTMLDivElement {
     return line;
 }
 
+export interface BootOptions {
+    container: HTMLElement;
+    user: User;
+    /** Remembers the time of the last login. */
+    store: KeyValueStore;
+}
+
 /**
  * Plays the boot sequence and resolves once the user dismissed it.
  */
-export async function runBootSequence(container: HTMLElement): Promise<void> {
+export async function runBootSequence({ container, user, store }: BootOptions): Promise<void> {
     const dismissed = createDismissSignal();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -107,7 +114,7 @@ export async function runBootSequence(container: HTMLElement): Promise<void> {
     };
 
     const play = async (): Promise<void> => {
-        for (const line of BOOT_LINES) {
+        for (const line of createBootLines(user)) {
             if (dismissed.isSet) return;
             append(createLine(line));
             await pause(line.delay ?? DEFAULT_DELAY_MS);
@@ -122,14 +129,14 @@ export async function runBootSequence(container: HTMLElement): Promise<void> {
         }
         await pause(AFTER_LOGIN_DELAY_MS);
 
-        append(createLine({ text: lastLoginText(), cls: 'boot-dim' }));
+        append(createLine({ text: lastLoginText(store), cls: 'boot-dim' }));
         append(createPressAnyKeyLine());
     };
 
     await play();
     await dismissed.promise;
 
-    safeLocalStorage.set(STORAGE_KEYS.lastLogin, new Date().toISOString());
+    store.set(STORAGE_KEYS.lastLogin, new Date().toISOString());
 
     container.classList.add('is-hidden');
     await wait(FADE_OUT_MS);

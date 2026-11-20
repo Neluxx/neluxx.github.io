@@ -3,18 +3,20 @@
  * command history (↑ / ↓), tab completion and Ctrl+L.
  */
 
-import { user } from '../data/content';
+import type { User } from '../data/types';
 import { errorMessage, escapeHtml } from '../utils/html';
 import { CommandHistory } from './CommandHistory';
 import type { CommandRegistry } from './CommandRegistry';
 import { parseInput } from './parseInput';
 
-const PROMPT_HTML = `
-    <span class="c-green">${user.name}@${user.host}</span><span>:</span><span class="c-blue">~</span><span>$</span>
-`;
+function renderPrompt({ name, host }: User): string {
+    return `<span class="c-green">${name}@${host}</span><span>:</span><span class="c-blue">~</span><span>$</span>`;
+}
 
 export interface TerminalOptions {
     registry: CommandRegistry;
+    /** Shown in the prompt as `name@host:~$`. */
+    user: User;
     /** Scroll container around output and input. */
     app: HTMLElement;
     /** Where output blocks are appended. */
@@ -33,15 +35,17 @@ export class Terminal {
     private readonly input: HTMLInputElement;
     private readonly onCommand: ((count: number) => void) | undefined;
     private readonly history = new CommandHistory();
+    private readonly promptHtml: string;
 
-    constructor({ registry, app, output, input, prompt, onCommand }: TerminalOptions) {
+    constructor({ registry, user, app, output, input, prompt, onCommand }: TerminalOptions) {
         this.registry = registry;
         this.app = app;
         this.output = output;
         this.input = input;
         this.onCommand = onCommand;
+        this.promptHtml = renderPrompt(user);
 
-        prompt.innerHTML = PROMPT_HTML;
+        prompt.innerHTML = this.promptHtml;
         this.bindEvents();
     }
 
@@ -107,7 +111,7 @@ export class Terminal {
         const entry = document.createElement('div');
         entry.className = 'input-entry';
         entry.innerHTML = `
-            <span class="prompt">${PROMPT_HTML}</span>
+            <span class="prompt">${this.promptHtml}</span>
             <span class="input-entry__command">${escapeHtml(input)}</span>
         `;
         this.output.appendChild(entry);

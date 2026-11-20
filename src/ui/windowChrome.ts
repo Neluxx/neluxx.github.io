@@ -2,10 +2,10 @@
  * Window title bar: the title and the three Mac-style buttons.
  */
 
-import { user } from '../data/content';
+import type { User } from '../data/types';
 import { getElement } from '../utils/dom';
 
-export function initWindowChrome(): void {
+export function initWindowChrome(user: User): void {
     const terminalBody = getElement('terminal-body');
 
     // Same format as a real terminal emulator: user@host: current directory
