@@ -7,5 +7,6 @@ export default defineConfig({
     test: {
         // Simulated browser, so tests can use `document` and `localStorage`.
         environment: 'jsdom',
+        include: ['tests/**/*.test.ts'],
     },
 });

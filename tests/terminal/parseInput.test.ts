@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseInput } from './parseInput';
+import { parseInput } from '../../src/terminal/parseInput';
 
 describe('parseInput', () => {
     it('splits the name from the arguments', () => {

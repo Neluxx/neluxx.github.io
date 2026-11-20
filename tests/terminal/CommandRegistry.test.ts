@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { CommandRegistry } from './CommandRegistry';
-import type { Command } from './types';
+import { CommandRegistry } from '../../src/terminal/CommandRegistry';
+import type { Command } from '../../src/terminal/types';
 
 function fakeCommand(name: string): Command {
     return { name, description: `${name} description`, run: () => null };

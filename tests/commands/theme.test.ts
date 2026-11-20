@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { CommandContext } from '../terminal/types';
-import { getTheme } from '../ui/settings';
-import { STORAGE_KEYS } from '../utils/storage';
-import { themeCommand } from './theme';
+import type { CommandContext } from '../../src/terminal/types';
+import { getTheme } from '../../src/ui/settings';
+import { STORAGE_KEYS } from '../../src/utils/storage';
+import { themeCommand } from '../../src/commands/theme';
 
 // The theme command doesn't use the context.
 const context = {} as CommandContext;

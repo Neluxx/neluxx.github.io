@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatClock, formatLoginDate, formatUptime } from './time';
+import { formatClock, formatLoginDate, formatUptime } from '../../src/utils/time';
 
 describe('formatClock', () => {
     it('pads hours, minutes and seconds', () => {
