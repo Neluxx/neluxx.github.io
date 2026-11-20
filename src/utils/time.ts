@@ -5,8 +5,11 @@
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
 
+const SECONDS_PER_MINUTE = 60;
+const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE;
+
 /** Pads a number to two digits: 7 → "07". */
-export function pad(value: number): string {
+function pad(value: number): string {
     return String(value).padStart(2, '0');
 }
 
@@ -17,9 +20,9 @@ export function formatClock(date: Date): string {
 
 /** "up 03:25", or "up 01:03:25" once an hour has passed. */
 export function formatUptime(totalSeconds: number): string {
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
+    const hours = Math.floor(totalSeconds / SECONDS_PER_HOUR);
+    const minutes = Math.floor((totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
+    const seconds = totalSeconds % SECONDS_PER_MINUTE;
 
     return hours > 0
         ? `up ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
