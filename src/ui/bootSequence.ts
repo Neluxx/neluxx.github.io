@@ -89,6 +89,72 @@ function createPressAnyKeyLine(): HTMLDivElement {
     return line;
 }
 
+/** What every step of the boot animation needs. */
+interface BootScreen {
+    append<T extends HTMLElement>(element: T): T;
+    /** Waits, but returns early as soon as the user skips. */
+    pause(ms: number): Promise<void>;
+    isSkipped(): boolean;
+}
+
+function createBootScreen(container: HTMLElement, dismissed: DismissSignal): BootScreen {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    return {
+        append(element) {
+            container.appendChild(element);
+            container.scrollTop = container.scrollHeight;
+            return element;
+        },
+
+        pause(ms) {
+            return reducedMotion ? Promise.resolve() : Promise.race([wait(ms), dismissed.promise]);
+        },
+
+        isSkipped() {
+            return dismissed.isSet;
+        },
+    };
+}
+
+async function playLines(screen: BootScreen, lines: readonly BootLine[]): Promise<void> {
+    for (const line of lines) {
+        if (screen.isSkipped()) return;
+        screen.append(createLine(line));
+        await screen.pause(line.delay ?? DEFAULT_DELAY_MS);
+    }
+}
+
+/** Types the user name like a real login. */
+async function typeLogin(screen: BootScreen, { name, host }: User): Promise<void> {
+    const login = screen.append(createLine({ text: `${host} login: ` }));
+
+    for (const char of name) {
+        if (screen.isSkipped()) return;
+        await screen.pause(TYPING_DELAY_MS);
+        login.textContent += char;
+    }
+
+    await screen.pause(AFTER_LOGIN_DELAY_MS);
+}
+
+async function play(screen: BootScreen, user: User, store: KeyValueStore): Promise<void> {
+    await playLines(screen, createBootLines(user));
+    if (screen.isSkipped()) return;
+
+    await typeLogin(screen, user);
+    if (screen.isSkipped()) return;
+
+    screen.append(createLine({ text: lastLoginText(store), cls: 'boot-dim' }));
+    screen.append(createPressAnyKeyLine());
+}
+
+async function fadeOut(container: HTMLElement): Promise<void> {
+    container.classList.add('is-hidden');
+    await wait(FADE_OUT_MS);
+    container.remove();
+}
+
 export interface BootOptions {
     container: HTMLElement;
     user: User;
@@ -101,44 +167,10 @@ export interface BootOptions {
  */
 export async function runBootSequence({ container, user, store }: BootOptions): Promise<void> {
     const dismissed = createDismissSignal();
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Waits, but returns early as soon as the user skips.
-    const pause = (ms: number): Promise<void> =>
-        reducedMotion ? Promise.resolve() : Promise.race([wait(ms), dismissed.promise]);
-
-    const append = <T extends HTMLElement>(element: T): T => {
-        container.appendChild(element);
-        container.scrollTop = container.scrollHeight;
-        return element;
-    };
-
-    const play = async (): Promise<void> => {
-        for (const line of createBootLines(user)) {
-            if (dismissed.isSet) return;
-            append(createLine(line));
-            await pause(line.delay ?? DEFAULT_DELAY_MS);
-        }
-
-        // Type the user name like a real login.
-        const login = append(createLine({ text: `${user.host} login: ` }));
-        for (const char of user.name) {
-            if (dismissed.isSet) return;
-            await pause(TYPING_DELAY_MS);
-            login.textContent += char;
-        }
-        await pause(AFTER_LOGIN_DELAY_MS);
-
-        append(createLine({ text: lastLoginText(store), cls: 'boot-dim' }));
-        append(createPressAnyKeyLine());
-    };
-
-    await play();
+    await play(createBootScreen(container, dismissed), user, store);
     await dismissed.promise;
 
     store.set(STORAGE_KEYS.lastLogin, new Date().toISOString());
-
-    container.classList.add('is-hidden');
-    await wait(FADE_OUT_MS);
-    container.remove();
+    await fadeOut(container);
 }
