@@ -1,6 +1,6 @@
 import { each, errorMessage, escapeHtml, section, statusMessage } from '../utils/html';
 import type { Command } from '../terminal/types';
-import { isValidTheme, THEME_NAMES, THEMES, type Settings, type ThemeName } from '../ui/settings';
+import { isValidTheme, THEME_NAMES, THEMES, type Settings, type ThemeName } from '../state/settings';
 
 function renderThemeRow(name: ThemeName, isActive: boolean): string {
     const cls = isActive ? 'c-green bold' : 'c-cyan';

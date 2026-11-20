@@ -1,6 +1,6 @@
 import { errorMessage, statusMessage } from '../utils/html';
 import type { Command } from '../terminal/types';
-import type { Settings } from '../ui/settings';
+import type { Settings } from '../state/settings';
 
 const USAGE = 'Usage: <span class="c-yellow">crt</span> [on|off|toggle]';
 

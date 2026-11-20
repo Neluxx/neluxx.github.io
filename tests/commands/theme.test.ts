@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { createSettings, type Settings } from '../../src/ui/settings';
+import { createSettings, type Settings } from '../../src/state/settings';
 import { createThemeCommand } from '../../src/commands/theme';
 import type { Command, CommandContext } from '../../src/terminal/types';
 import { createMemoryStore } from '../helpers/memoryStore';

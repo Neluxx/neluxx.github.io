@@ -12,7 +12,7 @@ import { user } from './data/content';
 import { CommandRegistry } from './terminal/CommandRegistry';
 import { Terminal } from './terminal/Terminal';
 import { runBootSequence } from './ui/bootSequence';
-import { createSettings } from './ui/settings';
+import { createSettings } from './state/settings';
 import { createStatusBar } from './ui/statusBar';
 import { initWindowChrome } from './ui/windowChrome';
 import { getElement } from './utils/dom';

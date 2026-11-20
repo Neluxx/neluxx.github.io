@@ -3,7 +3,7 @@
  * Edit this file to change what is shown while "booting".
  */
 
-import type { User } from '../data/types';
+import type { User } from './types';
 
 export type BootStatus = 'ok' | 'warn';
 
