@@ -15,7 +15,7 @@ My personal portfolio as an interactive terminal in the browser built with TypeS
 
 ## Getting started
 
-Requires Node.js (version in [`.nvmrc`](.nvmrc)).
+Requires Node.js (version in `engines.node` in [`package.json`](package.json)).
 
 ```sh
 npm install
