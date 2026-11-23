@@ -13,7 +13,7 @@ export interface BootLine {
     status?: BootStatus;
     /** Extra CSS class for the whole line, e.g. "boot-dim". */
     cls?: string;
-    /** Pause after the line in ms. Defaults to DEFAULT_DELAY in bootSequence.ts. */
+    /** Pause after the line in ms. Defaults to DEFAULT_DELAY_MS in bootSequence.ts. */
     delay?: number;
 }
 
