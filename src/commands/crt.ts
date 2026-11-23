@@ -6,7 +6,6 @@ const USAGE = 'Usage: <span class="c-yellow">crt</span> [on|off|toggle]';
 
 const ENABLED_MESSAGE = statusMessage(
     'CRT effect <span class="c-green">enabled</span> — scanlines, glow and flicker active',
-    'green',
 );
 
 const DISABLED_MESSAGE = statusMessage(
