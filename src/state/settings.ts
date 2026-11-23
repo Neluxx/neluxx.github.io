@@ -13,7 +13,7 @@ export type ThemeName = keyof typeof THEMES;
 
 export const THEME_NAMES = Object.keys(THEMES) as ThemeName[];
 
-export const DEFAULT_THEME: ThemeName = 'phosphor';
+const DEFAULT_THEME: ThemeName = 'phosphor';
 
 export function isValidTheme(name: string | undefined): name is ThemeName {
     return name !== undefined && Object.hasOwn(THEMES, name);
