@@ -32,8 +32,8 @@ npm run dev        # dev server with hot reload
 | `npm run format`    | Format all files with Prettier               |
 | `npm run typecheck` | Run the TypeScript compiler without building |
 
-Every push and pull request runs lint, type check, tests and build in CI.
-Pushes to `main` are deployed to GitHub Pages automatically.
+Every pull request runs lint, type check, tests and build in CI.
+Pushes to `main` run the same checks and are then deployed to GitHub Pages automatically.
 Dependencies are kept up to date by [Renovate](renovate.json).
 
 ## Project structure
