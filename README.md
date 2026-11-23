@@ -34,7 +34,7 @@ npm run dev        # dev server with hot reload
 
 Every pull request runs lint, type check, tests and build in CI.
 Pushes to `main` run the same checks and are then deployed to GitHub Pages automatically.
-Dependencies are kept up to date by [Renovate](renovate.json).
+Dependencies are kept up to date by [Renovate](.github/renovate.json).
 
 ## Project structure
 
