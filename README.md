@@ -22,17 +22,19 @@ npm install
 npm run dev        # dev server with hot reload
 ```
 
-| Script              | What it does                                 |
-| ------------------- | -------------------------------------------- |
-| `npm run dev`       | Start the dev server                         |
-| `npm run build`     | Type check and build the site into `dist/`   |
-| `npm run preview`   | Serve the built site locally                 |
-| `npm test`          | Run the unit tests (Vitest)                  |
-| `npm run lint`      | Check the code with ESLint                   |
-| `npm run format`    | Format all files with Prettier               |
-| `npm run typecheck` | Run the TypeScript compiler without building |
+| Script                 | What it does                                 |
+| ---------------------- | -------------------------------------------- |
+| `npm run dev`          | Start the dev server                         |
+| `npm run build`        | Type check and build the site into `dist/`   |
+| `npm run preview`      | Serve the built site locally                 |
+| `npm test`             | Run the unit tests (Vitest)                  |
+| `npm run test:watch`   | Run the unit tests in watch mode             |
+| `npm run lint`         | Check the code with ESLint                   |
+| `npm run format`       | Format all files with Prettier               |
+| `npm run format:check` | Check formatting without changing files      |
+| `npm run typecheck`    | Run the TypeScript compiler without building |
 
-Every pull request runs lint, type check, tests and build in CI.
+Every pull request runs lint, format check, type check, tests and build in CI.
 Pushes to `main` run the same checks and are then deployed to GitHub Pages automatically.
 Dependencies are kept up to date by [Renovate](.github/renovate.json).
 
